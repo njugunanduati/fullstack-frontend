@@ -7,7 +7,8 @@ import Book from "./book";
 import Search from "./search";
 import SearchResult from "./search-result";
 import { 
-    MainContainer, Heading, PaginationContainer 
+    MainContainer, HeaderSection, PaginationSection, BooksSection,
+    SearchSection
 } from "./styles";
 import Paginate from '../components/paginate';
 import { BooksContext } from '../state';
@@ -16,7 +17,7 @@ import { Button } from "@mui/material";
 const Books = () => {
     const {books, setBooks, search, setSearch} = useContext(BooksContext);
     const [currentPage, setCurrentPage] = useState([]);
-    const dataPerPage = 5
+    const dataPerPage = 20
     const indexOfLastPage = currentPage - dataPerPage;
     const indexOffirstPage = indexOfLastPage - dataPerPage;
     const currentBooks = books.slice(indexOffirstPage, indexOfLastPage);
@@ -37,23 +38,19 @@ const Books = () => {
 
     return (
         <MainContainer>
-            <Heading>
+            <HeaderSection>
                 <h1>Ello Book App</h1>
-            </Heading>
-            <section className="search">
-            {(search == '')?<Search books={books} setSearch={setSearch}/>: <Button onClick={(e) => clearSearchForm(e)}>Reset</Button>}
-            </section>
-            <section className="display-books">
-                {(search != '')? <SearchResult book={search} /> :<Stack 
-                    direction='row'
-                    divider={<Divider orientation="vertical" flexItem />}
-                    spacing={{ xs: 1, sm: 2, md: 4 }}>
-                    <Book books={currentBooks} />
-                </Stack>}
-            </section>
-            <PaginationContainer>
+            </HeaderSection>
+            <SearchSection>
+                {(search == '')?<Search books={books} setSearch={setSearch}/>: <Button onClick={(e) => clearSearchForm(e)}>Reset</Button>}
+            </SearchSection>
+            <BooksSection>
+                {(search != '')? <SearchResult book={search} /> :
+                    <Book books={currentBooks} />}
+            </BooksSection>
+            <PaginationSection>
                 {(search == '')?<Paginate booksPerPage={dataPerPage} totalBooks={books.length} paginate={paginate} /> : null}
-            </PaginationContainer>
+            </PaginationSection>
         </MainContainer>
     );
 };

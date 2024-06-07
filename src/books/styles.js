@@ -1,78 +1,97 @@
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import { FormGroup, TextField, Button } from '@mui/material';
-
-import Paper from '@mui/material/Paper';
+import {Button, Paper, TextField } from '@mui/material';
 
 
-export const MainContainer = styled(Container)`
-      background-color: ${props => props.background || 'transparent'},
-      height: 'max-content',
-      width: 'max-content',
-      overflow: "hidden"
-`;
+export const MainContainer = styled(Container)({
+      backgroundColor: 'white',
+      fontFamily: 'Mullish-Medium',
+      paddingLeft: 0,
+      paddingRight: 0,
+      margin: 'auto',
+});
 
-export const Heading = styled('div')`
-      color: '#5ACCCC',
-`;
+export const HeaderSection = styled('div')({
+      color: '#5ACCCC !important',
+});
 
-export const SearchContainer = styled('div')`
-display:flex,
-flex-direction: column,
-justify-content: center,
-align-items: center,
-`;
-export const BooksContainer = styled('div')``;
+export const SearchSection = styled('div')({
+      display:'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+});
 
-export const FormGroupContainer = styled(FormGroup)`
-    display:flex,
-    flex-direction: column
-    justify-content: center,
-    align-items: center,
-`;
+export const BooksSection = styled('div')({
+      display:'flex',
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      padding: 20,
+});
 
-export const TextSearchField = styled(TextField)`
-      width: 400px,
-`;
+export const BookPaper = styled('div')({
+      p: '2px 4px', 
+      display: 'flex', 
+      alignItems: 'center'
+});
 
-export const ButtonSearch = styled(Button)`
-      background-color: '#fff',
+export const SearchContainer = styled('div')({
+      p: '2px 4px', 
+      display: 'flex', 
+      alignItems: 'center', 
+      width: 400,
+      paddingBottom: 20,
+      marginBottom: 10
+});
+
+export const InputSection = styled('div')({
+      display:'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+});
+
+export const TextSearchField = styled(TextField)({
+      width: 400,
+      height: 0.5,
+      fontSize: 12
+});
+
+export const ButtonSection = styled('div')({
+      display:'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+});
+
+export const ButtonSearch = styled(Button)({
+      backgroundColor: '#335C6E',
+      color: '#fff',
+      borderRadius: 15,
+      fontSize: 18,
+      fontWeight: 600,
+      marginTop: 10,
+});
+
+export const BookItem = styled('div')({
+      width: 200,
+});
+
+export const AssignButton = styled(Button)({
+      backgroundColor: '#fff',
       color: '#1A2027',
       border: '1px solid #1A2027',
-      border-radius: 2.5px,
-      padding: 5px 10px,
-      font-size: 12px,
-      font-weight: 600,
-      margin-top: 10px,
-`;
+      borderRadius: 2.5,
+      fontSize: 12,
+      fontWeight: 600,
+      marginTop: 10,
+      marginBottom: 10,
+});
 
-export const TextFieldArea = styled('div')`
-width: 400px !important;,
-`;
-export const ButtonFieldArea = styled('div')`
-width: 400px !important,
-`;
+export const PaginationSection = styled('div')({
+      paddingTop: 20,
+});
 
-export const BookItem = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
-
-export const AssignButton = styled(Button)`
-      background-color: '#fff',
-      color: '#1A2027',
-      border: '1px solid #1A2027',
-      border-radius: 2.5px,
-      padding: 5px 10px,
-      font-size: 12px,
-      font-weight: 600,
-      margin-top: 10px,
-      margin-bottom: 10px,
-`;
-
-export const PaginationContainer = styled('div')`
-      padding-top: 20px !important,
-`;
+export const FooterSection = styled('div')({});
