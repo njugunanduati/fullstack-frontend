@@ -1,28 +1,34 @@
+import { useContext } from 'react';
+import { BooksContext } from '../state';
 import { 
-    BookItem, AssignButton, BookSearchResultsSection, BookImageSection, 
-    BookDescriptionSection, BookButtonSection, DeleteBookButton
+    DisplayReadingListSection, BookItem,  DeleteBookButton
 } from './styles';
 
 const DisplayReadingList = () => {
-    const readingList = JSON.parse(localStorage.getItem('readingList'));
+    const {
+        readList, setReadList
+    } = useContext(BooksContext);
     const removeBook = (book) => {
-        const index = readingList.indexOf(book);
-        readingList.splice(index, 1);
+        const index = readList.indexOf(book);
+        readList.splice(index, 1);
+        setReadList(JSON.parse(localStorage.getItem('readingList')));
+        localStorage.setItem("readingList", JSON.stringify(readList));
     };
+
     return (
-        <div>
-            {readingList.map(book =>{
+        <DisplayReadingListSection>
+            {(readList.length > 0)?readList.map(book =>{
                 return (
                     <BookItem key={book.id}>
                         <img src={book.coverPhotoURL} width={250} alt={book.title} />
                         <p>Title: <b>{book.title}</b></p>
                         <p>Author: {book.author}</p>
                         <p>Level: <b>{book.readingLevel}</b></p>
-                        <DeleteBookButton onClick={() => removeBook(book)}>Delete</DeleteBookButton>
+                        <DeleteBookButton onClick={() => removeBook(book)}>Remove</DeleteBookButton>
                     </BookItem>
                 );
-            })}
-        </div>
+            }): null}
+        </DisplayReadingListSection>
     )
 };
 

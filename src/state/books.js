@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 export const BooksContext = createContext({});
@@ -14,6 +14,7 @@ export const BooksProvider = (props) => {
     const [search, setSearch] = useState('');
     const [openToast, setOpenToast] = useState(false);
     const [showList, setShowList] = useState(false);
+    const [readList, setReadList] = useState([]);
 
     // Make the context object:
     const bookContext = {
@@ -26,8 +27,18 @@ export const BooksProvider = (props) => {
         openToast, 
         setOpenToast,
         showList, 
-        setShowList
+        setShowList,
+        readList, 
+        setReadList
     };
+
+    useEffect(() => {
+        if (localStorage.getItem('readingList')){
+            setReadList(JSON.parse(localStorage.getItem('readingList')));
+        }else{
+            setReadList([]);
+        }
+    }, [localStorage.getItem("readingList")])
 
     // pass the value in provider and return
     return <BooksContext.Provider value={bookContext}>{children}</BooksContext.Provider>;
@@ -38,7 +49,8 @@ BooksProvider.propTypes = {
     search: PropTypes.object,
     searchTerm: PropTypes.string,
     openToast: PropTypes.bool,
-    showList: PropTypes.bool 
+    showList: PropTypes.bool,
+    readList: PropTypes.array, 
 };
 
 BooksProvider.defaultProps = {
@@ -46,5 +58,6 @@ BooksProvider.defaultProps = {
     search: null,
     searchTerm: null,
     openToast: false,
-    showList: false, 
+    showList: false,
+    readList: [],
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import Snackbar from '@mui/material/Snackbar';
 import { GET_BOOKS } from "../services/gql-queries";
 import { useGraph } from './get-data';
 import Book from "./book";
@@ -7,11 +8,11 @@ import SearchResult from "./search-result";
 import DisplayReadingList from "./display-reading-list";
 import { 
     MainContainer, HeaderSection, PaginationSection, BooksSection,
-    SearchSection
+    SearchSection, TopHeaderTitles
 } from "./styles";
 import Paginate from '../components/paginate';
 import { BooksContext } from '../state';
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import { Toast } from "../components/toast";
 
 const Books = () => {
@@ -25,7 +26,7 @@ const Books = () => {
     const indexOffirstPage = indexOfLastPage - dataPerPage;
     const currentBooks = books.slice(indexOffirstPage, indexOfLastPage);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-    const { data, loading } = useGraph({ query: GET_BOOKS });
+    const { data } = useGraph({ query: GET_BOOKS });
 
     useEffect(() => {
         if (data) {
@@ -55,18 +56,18 @@ const Books = () => {
                 <h1>Ello Book App</h1>
             </HeaderSection>
             <SearchSection>
-                {(search === '')?<Search books={books} setSearch={setSearch}/>: <Button sx={{ backgroundColor: '#F76434', color: "#FFFFFF"}} onClick={(e) => clearSearchForm(e)}>Go Back</Button>}
-                {(showList)? <Button sx={{ backgroundColor: '#F76434', color: "#FFFFFF"}} onClick={(e) => hideList(e)}>Hide List</Button>:
-                <Button sx={{ backgroundColor: '#F76434', color: "#FFFFFF"}} onClick={(e) => getShowList(e)}>Show List</Button>}
+                {(search === '')?(!showList)?<Search books={books} setSearch={setSearch}/>:null: <Paper><Button sx={{ backgroundColor: '#F76434', color: "#FFFFFF"}} onClick={(e) => clearSearchForm(e)}>Go Back</Button></Paper>}
+                {(showList)? <Paper><Button sx={{ backgroundColor: '#F76434', color: "#FFFFFF"}} onClick={(e) => hideList(e)}>Hide List</Button></Paper>:
+                <Paper><Button sx={{ backgroundColor: '#F76434', color: "#FFFFFF"}} onClick={(e) => getShowList(e)}>Show List</Button></Paper>}
             </SearchSection>
-            {(showList)?<h2>Selected Books</h2> : (search !== '')?<h2>Search Results</h2>:<h2>Available Books</h2>}
+            {(showList)?<TopHeaderTitles>Selected Books</TopHeaderTitles> : (search !== '')?<TopHeaderTitles>Search Results</TopHeaderTitles>:<TopHeaderTitles>Available Books</TopHeaderTitles>}
             <BooksSection> 
                 {(!showList)?(search !== '')? <SearchResult book={search} /> :
                     <Book books={currentBooks} />: null}
-                {(showList)?<DisplayReadingList />: null}
             </BooksSection>
+            {(showList)?<DisplayReadingList />: null}
             <PaginationSection>
-                {(search === '')?<Paginate booksPerPage={dataPerPage} totalBooks={books.length} paginate={paginate} /> : null}
+                {(search === '')?(!showList)?<Paginate booksPerPage={dataPerPage} totalBooks={books.length} paginate={paginate} />:null : null}
             </PaginationSection>
             <Toast openToast={openToast} handleClose={handleClose} book={search} />
         </MainContainer>

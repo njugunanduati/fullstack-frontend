@@ -15,6 +15,10 @@ export const HeaderSection = styled('div')({
       color: '#5ACCCC !important',
 });
 
+export const TopHeaderTitles = styled('h2')({
+      color: '#335C6E !important',
+});
+
 export const SearchSection = styled('div')({
       display:'flex',
       flexDirection: 'row',
@@ -113,6 +117,15 @@ export const BookButtonSection = styled('div')({
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
+});
+
+export const DisplayReadingListSection = styled('div')({
+      display: 'flex',
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+      justifyContent:'space-evenly',
+      alignItems: 'center',
+      padding: 20,
 });
 
 export const DeleteBookButton = styled(Button)({
