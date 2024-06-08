@@ -12,6 +12,8 @@ export const BooksProvider = (props) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [books, setBooks] = useState([]);
     const [search, setSearch] = useState('');
+    const [openToast, setOpenToast] = useState(false);
+    const [showList, setShowList] = useState(false);
 
     // Make the context object:
     const bookContext = {
@@ -20,7 +22,11 @@ export const BooksProvider = (props) => {
         books, 
         setBooks,
         search, 
-        setSearch
+        setSearch,
+        openToast, 
+        setOpenToast,
+        showList, 
+        setShowList
     };
 
     // pass the value in provider and return
@@ -31,10 +37,14 @@ BooksProvider.propTypes = {
     books: PropTypes.array,
     search: PropTypes.object,
     searchTerm: PropTypes.string,
+    openToast: PropTypes.bool,
+    showList: PropTypes.bool 
 };
 
 BooksProvider.defaultProps = {
     books: [],
     search: null,
     searchTerm: null,
+    openToast: false,
+    showList: false, 
 };
